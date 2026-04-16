@@ -36,6 +36,28 @@ stages {
            }
        }
    }
+
+        stage('Docker Build') {
+            steps {
+                sh '''
+                    docker build -t first-web-app:latest .
+                '''
+            }
+        }
+
+
+        stage('Docker Deploy') {
+            steps {
+                sh '''
+                    docker stop first-web-app || true
+                    docker rm first-web-app || true
+                    docker run -d \
+                      --name first-web-app \
+                      -p 8080:8080 \
+                      first-web-app:latest
+                '''
+            }
+        }
 }
 
 
