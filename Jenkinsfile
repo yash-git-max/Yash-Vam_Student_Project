@@ -53,7 +53,7 @@ stages {
                     docker rm first-web-app || true
                     docker run -d \
                       --name first-web-app \
-                      -p 8080:8080 \
+                      -p 8081:8080 \
                       first-web-app:latest
                 '''
             }
