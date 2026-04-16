@@ -24,19 +24,18 @@ stages {
         }
     }
 
-    stage('SonarQube Analysis') {
-        steps {
-            withSonarQubeEnv('SonarQube') {
-                sh '''
-                    mvn sonar:sonar \
-                    -Dsonar.projectKey=first_web_project \
-                    -Dsonar.projectName=first_web_project \
-                    -Dsonar.branch.name=master \
-                    -Dsonar.java.binaries=target
-                '''
-            }
-        }
-    }
+   stage('SonarQube Analysis') {
+       steps {
+           withSonarQubeEnv('SonarQube') {
+               sh '''
+                   $MAVEN_HOME/bin/mvn sonar:sonar \
+                   -Dsonar.projectKey=first_web_project \
+                   -Dsonar.projectName=first_web_project \
+                   -Dsonar.java.binaries=target
+               '''
+           }
+       }
+   }
 }
 
 
