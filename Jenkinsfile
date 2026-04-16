@@ -6,23 +6,39 @@ pipeline {
         maven 'Maven3'
     }
 
-    stages {
-        stage('Build') {
-            steps {
+stages {
+
+    stage('Build') {
+        steps {
+            sh '''
+                echo "Using explicitly configured JDK"
+                echo "JAVA_HOME=$JAVA_HOME"
+                $JAVA_HOME/bin/java -version
+
+                echo "Maven using this Java:"
+                $JAVA_HOME/bin/java -version
+                $MAVEN_HOME/bin/mvn -version
+
+                $MAVEN_HOME/bin/mvn clean package
+            '''
+        }
+    }
+
+    stage('SonarQube Analysis') {
+        steps {
+            withSonarQubeEnv('SonarQube') {
                 sh '''
-                    echo "Using explicitly configured JDK"
-                    echo "JAVA_HOME=$JAVA_HOME"
-                    $JAVA_HOME/bin/java -version
-
-                    echo "Maven using this Java:"
-                    $JAVA_HOME/bin/java -version
-                    $MAVEN_HOME/bin/mvn -version
-
-                    $MAVEN_HOME/bin/mvn clean package
+                    mvn sonar:sonar \
+                    -Dsonar.projectKey=first_web_project \
+                    -Dsonar.projectName=first_web_project \
+                    -Dsonar.branch.name=master \
+                    -Dsonar.java.binaries=target
                 '''
             }
         }
     }
+}
+
 
     post {
         success {
