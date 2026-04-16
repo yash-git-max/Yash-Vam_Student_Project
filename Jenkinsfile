@@ -8,17 +8,13 @@ pipeline {
 
     stages {
 
-        stage('Checkout Code') {
-            steps {
-                git branch: 'master',
-                    credentialsId: 'github-creds',
-                    url: 'https://github.com/yash-git-max/Yash-Vam_Student_Project.git'
-            }
-        }
-
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                sh '''
+                   java -version
+                   mvn -version
+                   mvn clean package
+                '''
             }
         }
     }
