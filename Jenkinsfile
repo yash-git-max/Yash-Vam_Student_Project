@@ -6,19 +6,19 @@ pipeline {
         maven 'Maven3'
     }
 
-    environment {
-        JAVA_HOME = tool('JDK17')
-        PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
-    }
-
     stages {
         stage('Build') {
             steps {
                 sh '''
+                    echo "Using explicitly configured JDK"
                     echo "JAVA_HOME=$JAVA_HOME"
-                    java -version
-                    mvn -version
-                    mvn clean package
+                    $JAVA_HOME/bin/java -version
+
+                    echo "Maven using this Java:"
+                    $JAVA_HOME/bin/java -version
+                    $MAVEN_HOME/bin/mvn -version
+
+                    $MAVEN_HOME/bin/mvn clean package
                 '''
             }
         }
