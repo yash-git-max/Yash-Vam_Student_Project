@@ -2,11 +2,13 @@ package org.example.service.Impl;
 
 import org.example.exception.Exceptions;
 import org.example.exception.StudentNotFoundException;
-import org.example.exception.cust_studentnull;
 import org.example.domain.Student;
 import org.example.repository.StudentRepository;
 import org.example.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +44,22 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.delete(student);
         return student;
     }
+
+    public Page<Student> pagination(int page, int size, String sortBy ){
+        Pageable pageable = PageRequest.of(page,size);
+         Page<Student> p=studentRepository.findAll(pageable);
+//        return new PaginationResponseDTO<>(
+//                p.getContent(),
+//                p.getNumber(),
+//                p.getSize(),
+//                p.getTotalElements(),
+//                p.getTotalPages(),
+//                p.isLast()
+//        );
+        return null;
+
+
+    }
+
 
 }

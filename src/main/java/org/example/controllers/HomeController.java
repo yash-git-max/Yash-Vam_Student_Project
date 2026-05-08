@@ -13,7 +13,8 @@ public class HomeController {
 
     @GetMapping("/health")
     public String health() {
-        return "App is Running now Thank you use this http//<ip>:8081/swagger-ui/index.html";
+        return "App is Running now Thank you use this " +
+                "http//<ip>:8081/swagger-ui/index.html";
     }
 }
 

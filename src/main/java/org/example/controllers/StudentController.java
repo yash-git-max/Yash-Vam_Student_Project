@@ -2,13 +2,17 @@ package org.example.controllers;
 
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
+//import org.example.DTO.response.PageResponse;
+import org.example.DTO.response.PaginationResponseDTO;
 import org.example.DTO.response.StudentsResponse;
 import org.example.domain.Student;
 import org.example.exception.nostudents;
+import org.example.repository.StudentRepository;
 import org.example.service.Impl.StudentServiceImpl;
 import org.example.service.StudentService;
 //import org.example.service.StudentService_;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +28,9 @@ public class StudentController {
 
     @Autowired
     StudentService service=new StudentServiceImpl();
+//    @Autowired
+//    StudentsResponse stresp;
+
 
     @PostMapping
     public ResponseEntity<StudentsResponse> mapping(@Valid @RequestBody Student student){
@@ -69,5 +76,18 @@ public class StudentController {
         stresp.setMessage("Vamshi this is your data");
         return new ResponseEntity<>(stresp,HttpStatus.OK);
     }
+//
+//    @GetMapping("/studentdetails/pagination")
+//    public ResponseEntity<PaginationResponseDTO> getstudents(
+//            @RequestParam(defaultValue ="0")int page,
+//            @RequestParam(defaultValue = "5") int size,
+//        @RequestParam(defaultValue = "id") String sortBy
+//    ) {
+//
+//PaginationResponseDTO<Student> pagresp=new PaginationResponseDTO<>();
+//        service.pagination(page,size,sortBy);
+//        return null;
+//              //  ResponseEntity<>(pagresp, size, sortBy);
+//    }
 
 }

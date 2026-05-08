@@ -5,15 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-@ControllerAdvice
-public class GlobalExceptions {
+//@RestControllerAdvice
+public class GlobalExceptions__ {
 
     @ExceptionHandler(Exceptions.class)
     public Exception_Response datanotfound(Exceptions error){
@@ -26,11 +24,11 @@ public class GlobalExceptions {
     }
 
     @ExceptionHandler(ApiException.class)
-    public Exception_Response nullpointer (ApiException error){
+    public Exception_Response UniversalException (ApiException error){
         Exception_Response excresp=new Exception_Response();
         excresp.setMessage(error.getMessage());
         excresp.setTimestamp(LocalDateTime.now());
-        excresp.setStatus(HttpStatus.NOT_FOUND.value());
+        excresp.setStatus(error.getStatus().value());
         return excresp;
     }
 

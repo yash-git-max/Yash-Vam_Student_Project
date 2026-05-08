@@ -1,5 +1,6 @@
 package org.example.repository;
 
+import org.example.domain.Login;
 import org.example.domain.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
